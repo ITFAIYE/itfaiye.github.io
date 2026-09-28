@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Uyarı – Yapay Zeka Asistanı (Test)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <style>
+    :root{
+      --accent:#e63946; --accent-dark:#c1121f; --bg:#f8f9fa; --card:#ffffff;
+      --text:#1a1a1a; --text-secondary:#6c757d; --border:rgba(0,0,0,0.1);
+      --warn:#b45309; --warn-bg:#fff7e6; --warn-border:#f2c26b;
+      --shadow:0 16px 48px rgba(0,0,0,0.12);
+    }
+    .dark-theme{
+      --accent:#ff4757; --accent-dark:#ee5a6f; --bg:#0a0e27; --card:#1a1f3a;
+      --text:#e8eaed; --text-secondary:#9aa5b1; --border:rgba(255,255,255,0.08);
+      --warn:#fbbf24; --warn-bg:rgba(251,191,36,0.08); --warn-border:rgba(251,191,36,0.35);
+      --shadow:0 16px 56px rgba(0,0,0,0.5);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.6;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px;-webkit-font-smoothing:antialiased}
+    .box{width:100%;max-width:680px;background:var(--card);border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+    .head{background:var(--warn-bg);border-bottom:1px solid var(--warn-border);padding:22px 26px;display:flex;align-items:center;gap:14px}
+    .head .ico{font-size:2.2rem;line-height:1}
+    .head h1{font-size:1.35rem;font-weight:800;color:var(--warn);letter-spacing:.3px}
+    .head p{font-size:.85rem;color:var(--text-secondary)}
+    .body{padding:24px 26px}
+    ol{padding-left:0;list-style:none;counter-reset:n;display:flex;flex-direction:column;gap:12px}
+    ol li{counter-increment:n;position:relative;padding-left:38px;font-size:.96rem}
+    ol li::before{content:counter(n);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-size:.8rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+    ol li b{font-weight:700}
+    .confirm{margin-top:22px;padding:14px 16px;border:1px solid var(--border);border-radius:12px;display:flex;gap:12px;align-items:flex-start;cursor:pointer}
+    .confirm input{width:20px;height:20px;margin-top:2px;accent-color:var(--accent);flex:0 0 auto;cursor:pointer}
+    .confirm span{font-size:.95rem;font-weight:600}
+    .actions{margin-top:18px;display:flex;flex-direction:column;gap:10px}
+    #goBtn{width:100%;padding:14px 18px;border:none;border-radius:12px;font-family:inherit;font-size:1rem;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent-dark));cursor:pointer;transition:opacity .2s,transform .1s}
+    #goBtn:disabled{opacity:.4;cursor:not-allowed;filter:grayscale(.4)}
+    #goBtn:not(:disabled):active{transform:scale(.98)}
+    .hint{text-align:center;font-size:.82rem;color:var(--text-secondary);min-height:1.2em}
+    .back{text-align:center;font-size:.85rem}
+    .back a{color:var(--text-secondary);text-decoration:none}
+    .back a:hover{color:var(--accent)}
+    @media (max-width:480px){.head,.body{padding-left:18px;padding-right:18px}.head h1{font-size:1.15rem}}
+  </style>
+</head>
+<body>
+  <main class="box">
+    <div class="head">
+      <div class="ico">⚠️</div>
+      <div>
+        <h1>DİKKAT</h1>
+        <p>Yapay Zeka Asistanı (Test)</p>
+      </div>
+    </div>
+    <div class="body">
+      <ol>
+        <li><b>Bu sayfa henüz geliştirilmekte olup test amaçlı yüklenmiştir.</b></li>
+        <li>Yapay zekanın vermiş olduğu bilgilerin doğruluğundan emin olunuz.</li>
+        <li>Sormuş olduğunuz sorular yapay zekanın eğitimi için kullanılacaktır.</li>
+        <li>Cevabı bulunamayan sorular yöneticiler tarafından cevaplanacaktır.</li>
+        <li>Kayıt işlemleri ardından hesabınız, onaylanması için yöneticiye aktarılacaktır.</li>
+        <li>Onaylanan hesaplar e-posta yoluyla size bildirilecektir.</li>
+        <li>Sisteme girilen her bilginin doğru olduğundan emin olunuz.</li>
+        <li>Seçilen araç dışında soru sormayınız.</li>
+      </ol>
+
+      <label class="confirm" for="agree">
+        <input type="checkbox" id="agree">
+        <span>Yukarıdaki uyarıları okudum, kabul ediyorum ve onaylıyorum.</span>
+      </label>
+
+      <div class="actions">
+        <button id="goBtn" type="button" disabled>Sayfaya Git (10)</button>
+        <div class="hint" id="hint">Lütfen uyarıları okuyun.</div>
+        <div class="back"><a href="/">← Ana sayfaya dön</a></div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      var TARGET = 'https://itfaiye.github.io/ITFAIYE-AI-ASISTAN/';
+      var SECONDS = 10;
+
+      // Tema: ana sayfayla aynı ayarları kullan
+      try {
+        var mobile = window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        var dark = mobile ? localStorage.getItem('mobLightTheme') !== 'true'
+                          : localStorage.getItem('darkTheme') === 'true';
+        if (dark) document.body.classList.add('dark-theme');
+      } catch (e) {}
+
+      var btn = document.getElementById('goBtn');
+      var chk = document.getElementById('agree');
+      var hint = document.getElementById('hint');
+      var left = SECONDS;
+
+      function refresh() {
+        if (left > 0) {
+          btn.disabled = true;
+          btn.textContent = 'Sayfaya Git (' + left + ')';
+          hint.textContent = 'Lütfen uyarıları okuyun. Buton ' + left + ' saniye sonra aktif olacak.';
+        } else if (!chk.checked) {
+          btn.disabled = true;
+          btn.textContent = 'Sayfaya Git';
+          hint.textContent = 'Devam etmek için onay kutusunu işaretleyin.';
+        } else {
+          btn.disabled = false;
+          btn.textContent = 'Sayfaya Git';
+          hint.textContent = '';
+        }
+      }
+
+      var timer = setInterval(function () {
+        left--;
+        if (left <= 0) { left = 0; clearInterval(timer); }
+        refresh();
+      }, 1000);
+
+      chk.addEventListener('change', refresh);
+      btn.addEventListener('click', function () {
+        if (left === 0 && chk.checked) window.location.href = TARGET;
+      });
+      refresh();
+    })();
+  </script>
+</body>
+</html>
